@@ -11,7 +11,11 @@ class book(models.Model):
     user_name = models.CharField(max_length=20)
     isdonated = models.CharField(default="No", max_length=3)
     cost=models.IntegerField
-    time = models.TimeField
+    time = models.TimeField(auto_now_add=True)
 
 class request(models.Model):
-
+    reqId = models.AutoField(primary_key=True)
+    time = models.TimeField(auto_now_add=True)
+    accepted = models.CharField(default="Processing", max_length=10)
+    isbn = models.CharField(max_length=20)
+    deliveryManId = models.IntegerField(default=0)
