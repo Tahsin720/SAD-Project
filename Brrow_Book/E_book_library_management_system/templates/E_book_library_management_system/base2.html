@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>This is home page of {{request.user.username}} </h1>
+    </div>
+    <form action="{% url 'search' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="search" placeholder="Search By Name" required>
+        <button style="border-radius: 5px; padding: 3px 5px;" type="submit">search</button>
+    </from>
+    <button class="btn"> <a  href="{% url 'book' %}"> Book_Page </a> </button>
+    <button class="btn"> <a class = "rating" href="">My Request</a> </button>
+    <button class="btn"> <a class = "rating" href="">My Book</a> </button>
+    <button class="btn"> <a  href="{% url 'donate' %}"> Donate </a> </button>
+    <button class="btn"> <a  href="{% url 'signout' %}">Sign Out</a></button>
+    <style>
+			.btn{
+				background: #7868e6;
+				padding: 3px 5px;
+				border-radius: 5px;			
+			}
+			.rating{
+				text-decoration: none;
+				color: white;
+			}
+            #ptable{
+                width: 100%;
+                border: 1px solid blue;
+                border-collapse: collapse;
+            }
+            
+            #ptable th, #ptable td{
+                border: 1px solid blue;
+                border-collapse: collapse;
+                text-align: center;
+            }
+            
+            #ptable tr:hover{
+                background-color: bisque;
+            }
+                    #ptable{
+                        width: 100%;
+                        border: 1px solid blue;
+                        border-collapse: collapse;
+                    }
+                    
+                    #ptable th, #ptable td{
+                        border: 1px solid blue;
+                        border-collapse: collapse;
+                        text-align: center;
+                    }
+                    
+                    #ptable tr:hover{
+                        background-color: bisque;
+                    }
+            </style>
+            {% block page %}
+    
+            {% endblock %}
+</body>
+</html>

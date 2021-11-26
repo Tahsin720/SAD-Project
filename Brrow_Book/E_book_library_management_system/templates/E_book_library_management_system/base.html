@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <style>
+        .btn{
+            background: #7868e6;
+            padding: 3px 5px;
+            border-radius: 5px;		
+        }
+    </style>
+    <div class="menu">
+        <button class="btn"> <a  href="{% url 'signout' %}">Sign Out</a></button>
+    </div>
+    {% block login_form %}
+    
+    {% endblock %}
+</body>
+</html>

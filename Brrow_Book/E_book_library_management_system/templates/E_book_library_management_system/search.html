@@ -1,0 +1,57 @@
+{% extends 'E_book_library_management_system/base2.html' %}
+
+{% block page %}
+    <h5>Searched Book Details</h5>
+    <table id="ptable">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>isbn</th>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Description</th>
+                <th>User Name</th>
+                <th>Is Donated</th>
+                <th>Likes</th>
+                <th>Dislikes</th>
+                <th>Buttons</th>
+                <th>Rating</th>
+
+            </tr>
+        </thead>
+    <tbody>
+        {% if book %}
+            {% for b in book %}
+
+                <tr>
+                    <td> <img src="{{b.image.url}}" width="100" height="100"></td>
+                    
+                    <td>{{b.isbn}}</td>
+                    <td>{{b.name}}</td>
+                    <td>{{b.author}}</td>
+                    <td>{{b.description}}</td>
+                    <td>{{b.user_name}}</td>
+                    <td>{{b.isdonated}}</td>
+                    <td>{{b.likes}}</td>
+                    <td>{{b.dislikes}}</td>
+                    <td>
+                        <form action = "{% url 'donate' %}" method="GET">
+                            {% csrf_token %}
+                            <input type="hidden" id="isbn" name="isbn" value={{b.isbn}}>
+                            <input class="btn" type="submit" name="add" value="Request">
+                        </form>
+                    </td>
+                    
+                    <td>
+                        <button class="btn"> <a class="rating" href="" ${{b.isbn}}>Like</a> </button>
+                        <button class="btn"> <a class="rating" href="" ${{b.isbn}}>Dislike</a> </button>
+                    </td>
+
+                </tr>
+                {% endfor %}
+                {% else %}
+                <h1>No data!</h1>
+                {% endif %}
+
+    </tbody>
+{% endblock %}

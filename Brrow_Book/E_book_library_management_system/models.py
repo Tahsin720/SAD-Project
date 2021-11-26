@@ -10,7 +10,7 @@ class book(models.Model):
     description = models.TextField(max_length=200)
     user_name = models.CharField(max_length=20)
     isdonated = models.CharField(default="No", max_length=3)
-    cost=models.IntegerField
+    cost=models.IntegerField(default=0)
     time = models.TimeField(auto_now_add=True)
 
 class request(models.Model):

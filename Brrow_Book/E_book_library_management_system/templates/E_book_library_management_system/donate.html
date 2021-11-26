@@ -1,0 +1,35 @@
+{% extends 'E_book_library_management_system/base2.html' %}
+
+{% block page %}
+    <form action="{% url 'donate' %}" method="POST" enctype="multipart/form-data">
+        Select image to upload:
+        {% csrf_token %}
+        <p>isbn<font color =red>*</font></p>
+        <input type = "text" name = "isbn" placeholder = "Enter isbn" required>
+                            
+        <p>Name<font color =red>*</font></p>
+        <input type = "name" name = "name"placeholder="Enter Name" required>
+                            
+        <p>Author<font color =red>*</font></p>
+        <input type = "text" name = "author"placeholder="Enter Author" required>
+                                
+                        
+        <p>Description<font color =red>*</font></p>
+        <textarea name="description" rows="4" cols="50" required></textarea>
+        
+        <p>User name<font color =red>*</font></p>
+        <input type = "text" name = "user" value = "{{request.user.username}}"required>                    
+
+        <p>IsDonated<font color =red>*</font></p>
+        <input type="radio" id="yes" name="IsDonated" value="Yes" required>
+        <label for="yes">Yes</label><br>
+        
+        <input type="radio" id="no" name="IsDonated" value="No" required>
+        <label for="no">No</label><br>
+
+        <p>Image<font color =red>*</font></p>
+        <input type="file" name="photo" placeholder="Enter Image" required>
+
+        <input type="submit" value="Upload Image" name="submit">
+    </form>
+{% endblock %}
