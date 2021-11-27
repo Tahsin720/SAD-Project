@@ -14,9 +14,6 @@
                 <th>Is Donated</th>
                 <th>Likes</th>
                 <th>Dislikes</th>
-                <th>Buttons</th>
-                <th>Rating</th>
-
             </tr>
         </thead>
     <tbody>
@@ -34,19 +31,6 @@
                     <td>{{b.isdonated}}</td>
                     <td>{{b.likes}}</td>
                     <td>{{b.dislikes}}</td>
-                    <td>
-                        <form action = "{% url 'donate' %}" method="GET">
-                            {% csrf_token %}
-                            <input type="hidden" id="isbn" name="isbn" value={{b.isbn}}>
-                            <input class="btn" type="submit" name="add" value="Request">
-                        </form>
-                    </td>
-                    
-                    <td>
-                        <button class="btn"> <a class="rating" href="" ${{b.isbn}}>Like</a> </button>
-                        <button class="btn"> <a class="rating" href="" ${{b.isbn}}>Dislike</a> </button>
-                    </td>
-
                 </tr>
                 {% endfor %}
                 {% else %}

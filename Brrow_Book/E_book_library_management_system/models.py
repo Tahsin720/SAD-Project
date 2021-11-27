@@ -13,8 +13,9 @@ class book(models.Model):
     cost=models.IntegerField(default=0)
     time = models.TimeField(auto_now_add=True)
 
-class request(models.Model):
+class my_request(models.Model):
     reqId = models.AutoField(primary_key=True)
+    requester = models.CharField(max_length=20)
     time = models.TimeField(auto_now_add=True)
     accepted = models.CharField(default="Processing", max_length=10)
     isbn = models.CharField(max_length=20)

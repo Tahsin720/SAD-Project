@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from . models import request, book
+from . models import my_request, book
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -71,8 +71,8 @@ def donate_page(request):
         return render(request, 'E_book_library_management_system/donate.html')
 
 def book_page(request):
-    b = book.objects.all()
-    return render(request, 'E_book_library_management_system/book.html', {'book': b})
+    b_page = book.objects.all()
+    return render(request, 'E_book_library_management_system/book.html', {'book_page': b_page})
 
 def search_page(request):
     if request.method == 'POST':
@@ -81,3 +81,32 @@ def search_page(request):
         return render(request, 'E_book_library_management_system/search.html', {'book': b})
     else:
         return redirect('book')
+
+def Request_func(request):
+    if request.method == 'GET':
+        id = request.GET['isbn']
+        name = request.GET['uname']
+        if not my_request.objects.filter(isbn = id, requester = name).exists():
+            r = my_request(isbn = id, requester = name)
+            r.save()
+            return redirect('book')
+        else:
+            messages.error(request, 'Data already exists!')
+            return redirect('book')
+    else:
+        messages.error(request, 'Failed!')
+        return redirect('book')
+
+def cancel_Request_func(request):
+        if request.method == 'GET':
+            id = request.GET['isbn']
+            if my_request.objects.filter(isbn = id).exists():
+                r = my_request.objects.get(isbn = id)
+                r.delete()
+                return redirect('book')
+            else:
+                messages.error(request, 'No Such Data')
+                return redirect('book')
+        else:
+            messages.error(request, 'failed')
+            return redirect('book')

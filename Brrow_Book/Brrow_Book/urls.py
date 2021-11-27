@@ -29,6 +29,8 @@ urlpatterns = [
     path('donate/',views.donate_page, name='donate'),
     # path('', include("django.contrib.auth.urls")),
     path('search/',views.search_page, name='search'),
+    path('Request/',views.Request_func, name='Request'),
+    path('cancel Request/',views.cancel_Request_func, name='cancel Request'),
     # path('likes/',views.count_dislikes, name='likes'),
     # path('dislikes/',views.count_likes, name='dislikes'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

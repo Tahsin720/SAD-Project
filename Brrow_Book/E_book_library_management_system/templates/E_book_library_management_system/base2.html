@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"> -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -10,11 +12,9 @@
     <div class="container">
         <h1>This is home page of {{request.user.username}} </h1>
     </div>
-    <form action="{% url 'search' %}" method="POST">
-        {% csrf_token %}
-        <input type="text" name="search" placeholder="Search By Name" required>
-        <button style="border-radius: 5px; padding: 3px 5px;" type="submit">search</button>
-    </from>
+    {% block search_page %}
+
+    {% endblock %}
     <button class="btn"> <a  href="{% url 'book' %}"> Book_Page </a> </button>
     <button class="btn"> <a class = "rating" href="">My Request</a> </button>
     <button class="btn"> <a class = "rating" href="">My Book</a> </button>
@@ -60,9 +60,12 @@
                     #ptable tr:hover{
                         background-color: bisque;
                     }
-            </style>
-            {% block page %}
+        </style>
+        <class="btn-disabled">
+
+        </class>
+        {% block page %}
     
-            {% endblock %}
+        {% endblock %}
 </body>
 </html>

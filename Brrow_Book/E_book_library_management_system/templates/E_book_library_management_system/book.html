@@ -1,5 +1,12 @@
 {% extends 'E_book_library_management_system/base2.html' %}
 
+{% block search_page %}
+        <form action="{% url 'search' %}" method="POST">
+            <input type="text" name="search" placeholder="Search By Name" required>
+            <button style="border-radius: 5px; padding: 3px 5px;" type="submit">search</button>
+        </form> 
+{% endblock %}
+
 {% block page %}
     <h5>Book Page</h5>
     <table id="ptable">
@@ -11,6 +18,7 @@
                 <th>Author</th>
                 <th>Description</th>
                 <th>User Name</th>
+                <th>Cost</th>
                 <th>Is Donated</th>
                 <th>Likes</th>
                 <th>Dislikes</th>
@@ -20,25 +28,36 @@
             </tr>
         </thead>
     <tbody>
-        {% if book %}
-            {% for b in book %}
+        {% if book_page %}
+            {% for b_page in book_page %}
 
                 <tr>
-                    <td> <img src="{{b.image.url}}" width="100" height="100"></td>
+                    <td> <img src="{{b_page.image.url}}" width="100" height="100"></td>
                     
-                    <td>{{b.isbn}}</td>
-                    <td>{{b.name}}</td>
-                    <td>{{b.author}}</td>
-                    <td>{{b.description}}</td>
-                    <td>{{b.user_name}}</td>
-                    <td>{{b.isdonated}}</td>
-                    <td>{{b.likes}}</td>
-                    <td>{{b.dislikes}}</td>
+                    <td>{{b_page.isbn}}</td>
+                    <td>{{b_page.name}}</td>
+                    <td>{{b_page.author}}</td>
+                    <td>{{b_page.description}}</td>
+                    <td>{{b_page.user_name}}</td>
+                    <td>{{b_page.cost}}</td>
+                    <td>{{b_page.isdonated}}</td>
+                    <td>{{b_page.likes}}</td>
+                    <td>{{b_page.dislikes}}</td>
                     <td>
-                        <form action = "{% url 'donate' %}" method="GET">
+                        <form action = "{% url 'Request' %}" method="GET">
                             {% csrf_token %}
-                            <input type="hidden" id="isbn" name="isbn" value={{b.isbn}}>
-                            <input class="btn" type="submit" name="add" value="Request">
+                            {% if b_page.user_name != request.user.username %}
+                                <input type="hidden" id="isbn" name="isbn" value={{b_page.isbn}}>
+                                <input type="hidden" id="uname" name="uname" value={{request.user.username}}>
+                                <input class="btn" type="submit" name="add" id="add" value="Request">
+                            {% endif %}
+                        </form>
+                        <form action = "{% url 'cancel Request' %}" method="GET">
+                            {% csrf_token %}
+                            {% if b_page.user_name != request.user.username %}
+                                <input type="hidden" id="isbn" name="isbn" value={{b_page.isbn}}>
+                                <input class="btn" type="submit" name="cancel" id="cancel" value="Cancel Request">
+                            {% endif %}
                         </form>
                     </td>
                     
@@ -54,4 +73,5 @@
                 {% endif %}
 
     </tbody>
+    
 {% endblock %}
