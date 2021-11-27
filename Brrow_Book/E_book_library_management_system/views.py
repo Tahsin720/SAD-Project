@@ -110,3 +110,40 @@ def cancel_Request_func(request):
         else:
             messages.error(request, 'failed')
             return redirect('book')
+
+def count_likes(request):
+        if request.method == 'GET':
+            id = request.GET['isbn']
+            if book.objects.filter(isbn = id).exists():
+                r = book.objects.get(isbn = id)
+                r.likes += 1
+                r.save()
+                return redirect('book')
+            else:
+                messages.error(request, 'No Such Data')
+                return redirect('book')
+        else:
+            messages.error(request, 'failed')
+            return redirect('book')
+
+def count_dislikes(request):
+        if request.method == 'GET':
+            id = request.GET['isbn']
+            if book.objects.filter(isbn = id).exists():
+                r = book.objects.get(isbn = id)
+                r.dislikes += 1
+                r.save()
+                return redirect('book')
+            else:
+                messages.error(request, 'No Such Data')
+                return redirect('book')
+        else:
+            messages.error(request, 'failed')
+            return redirect('book')
+
+def my_book_func(request):
+    if book.objects.filter(user_name = request.user.username).exists(): 
+        b_page = book.objects.all()
+        return render(request, 'E_book_library_management_system/my_book.html', {'book_page': b_page})
+    else:
+        return redirect('book')

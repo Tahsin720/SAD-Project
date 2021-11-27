@@ -7,7 +7,7 @@
         </form> 
 {% endblock %}
 
-{% block page %}
+{% block book_page %}
     <h5>Book Page</h5>
     <table id="ptable">
         <thead>
@@ -62,15 +62,27 @@
                     </td>
                     
                     <td>
-                        <button class="btn"> <a class="rating" href="" ${{b.isbn}}>Like</a> </button>
-                        <button class="btn"> <a class="rating" href="" ${{b.isbn}}>Dislike</a> </button>
+                        <form action = "{% url 'likes' %}" method="GET">
+                            {% csrf_token %}
+                            {% if b_page.user_name != request.user.username %}
+                                <input type="hidden" id="isbn" name="isbn" value={{b_page.isbn}}>
+                                <input class="btn" type="submit" name="cancel" id="cancel" value="Like">
+                            {% endif %}
+                        </form>
+                        <form action = "{% url 'dislikes' %}" method="GET">
+                            {% csrf_token %}
+                            {% if b_page.user_name != request.user.username %}
+                                <input type="hidden" id="isbn" name="isbn" value={{b_page.isbn}}>
+                                <input class="btn" type="submit" name="cancel" id="cancel" value="Dislike">
+                            {% endif %}
+                        </form>
                     </td>
 
                 </tr>
-                {% endfor %}
-                {% else %}
-                <h1>No data!</h1>
-                {% endif %}
+            {% endfor %}
+        {% else %}
+            <h1>No data!</h1>
+        {% endif %}
 
     </tbody>
     

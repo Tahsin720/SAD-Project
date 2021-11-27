@@ -27,10 +27,10 @@ urlpatterns = [
     path('book/',views.book_page, name='book'),
     path('signout/',views.signout_page, name='signout'),
     path('donate/',views.donate_page, name='donate'),
-    # path('', include("django.contrib.auth.urls")),
     path('search/',views.search_page, name='search'),
     path('Request/',views.Request_func, name='Request'),
     path('cancel Request/',views.cancel_Request_func, name='cancel Request'),
-    # path('likes/',views.count_dislikes, name='likes'),
-    # path('dislikes/',views.count_likes, name='dislikes'),
+    path('likes/',views.count_likes, name='likes'),
+    path('dislikes/',views.count_dislikes, name='dislikes'),
+    path('my_book/',views.my_book_func, name='my_book'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
