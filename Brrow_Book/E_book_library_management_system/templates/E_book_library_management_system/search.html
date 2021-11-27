@@ -1,6 +1,6 @@
 {% extends 'E_book_library_management_system/base2.html' %}
 
-{% block page %}
+{% block book_page %}
     <h5>Searched Book Details</h5>
     <table id="ptable">
         <thead>
@@ -33,7 +33,7 @@
                 </tr>
             {% endfor %}
         {% else %}
-            <h1>No data!</h1>
+            <h1>No such data found!</h1>
         {% endif %}
 
     </tbody>

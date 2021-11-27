@@ -15,11 +15,11 @@
     {% block search_page %}
 
     {% endblock %}
-    <button class="btn"> <a  href="{% url 'book' %}"> Book_Page </a> </button>
-    <button class="btn"> <a class = "rating" href="">My Request</a> </button>
-    <button class="btn"> <a class = "rating" href="">My Book</a> </button>
-    <button class="btn"> <a  href="{% url 'donate' %}"> Donate </a> </button>
-    <button class="btn"> <a  href="{% url 'signout' %}">Sign Out</a></button>
+    <button class="btn"> <a class = "rating" href="{% url 'book' %}"> Book Page </a> </button>
+    <button class="btn"> <a class = "rating" href=""> My Request </a> </button>
+    <button class="btn"> <a class = "rating" href="{% url 'my_book' %}"> My Book </a> </button>
+    <button class="btn"> <a class = "rating" href="{% url 'donate' %}"> Donate Book </a> </button>
+    <button class="btn"> <a class = "rating" href="{% url 'signout' %}"> Sign Out </a></button>
     <style>
 			.btn{
 				background: #7868e6;
@@ -68,12 +68,5 @@
     
         {% endblock %}
 
-        {% block page %}
-    
-        {% endblock %}
-
-        {% block my_book_page %}
-    
-        {% endblock %}
 </body>
 </html>

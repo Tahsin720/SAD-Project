@@ -143,7 +143,7 @@ def count_dislikes(request):
 
 def my_book_func(request):
     if book.objects.filter(user_name = request.user.username).exists(): 
-        b_page = book.objects.all()
+        b_page = book.objects.filter(user_name = request.user.username)
         return render(request, 'E_book_library_management_system/my_book.html', {'book_page': b_page})
     else:
-        return redirect('book')
+        return render(request, 'E_book_library_management_system/my_book.html')

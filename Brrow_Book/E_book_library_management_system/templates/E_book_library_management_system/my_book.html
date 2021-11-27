@@ -1,6 +1,6 @@
 {% extends 'E_book_library_management_system/base2.html' %}
 
-{% block my_book_page %}
+{% block book_page %}
 <h5>Book Page</h5>
 <table id="ptable">
     <thead>
@@ -22,12 +22,13 @@
                     <td>{{b_page.isbn}}</td>
                     <td>{{b_page.name}}</td>
                     <td>{{b_page.author}}</td>
+                    <td>{{b_page.isdonated}}</td>
                     <td>{{b_page.likes}}</td>
                     <td>{{b_page.dislikes}}</td>
                 </tr>
             {% endfor %}
         {% else %}
-            <h1>No data!</h1>
+            <h1>I haven't donated any book yet'!</h1>
         {% endif %}
 
     </tbody>

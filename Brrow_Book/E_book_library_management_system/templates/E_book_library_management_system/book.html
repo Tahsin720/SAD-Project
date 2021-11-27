@@ -2,6 +2,7 @@
 
 {% block search_page %}
         <form action="{% url 'search' %}" method="POST">
+            {% csrf_token %}
             <input type="text" name="search" placeholder="Search By Name" required>
             <button style="border-radius: 5px; padding: 3px 5px;" type="submit">search</button>
         </form> 
