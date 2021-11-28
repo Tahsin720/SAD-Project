@@ -1,6 +1,6 @@
 {% extends 'E_book_library_management_system/base2.html' %}
 
-{% block page %}
+{% block book_page %}
     <form action="{% url 'donate' %}" method="POST" enctype="multipart/form-data">
         Select image to upload:
         {% csrf_token %}
@@ -12,7 +12,6 @@
                             
         <p>Author<font color =red>*</font></p>
         <input type = "text" name = "author"placeholder="Enter Author" required>
-                                
                         
         <p>Description<font color =red>*</font></p>
         <textarea name="description" rows="4" cols="50" required></textarea>

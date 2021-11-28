@@ -147,3 +147,11 @@ def my_book_func(request):
         return render(request, 'E_book_library_management_system/my_book.html', {'book_page': b_page})
     else:
         return render(request, 'E_book_library_management_system/my_book.html')
+
+def my_request_func(request):
+    if my_request.objects.filter(requester = request.user.username).exists(): 
+        r_page = my_request.objects.filter(requester = request.user.username)
+        # return render(request, 'E_book_library_management_system/my_req.html')
+        return render(request, 'E_book_library_management_system/my_req.html', {'req_page': r_page})
+    else:
+        return render(request, 'E_book_library_management_system/my_req.html')

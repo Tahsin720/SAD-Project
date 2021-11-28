@@ -1,0 +1,29 @@
+{% extends 'E_book_library_management_system/base2.html' %}
+
+{% block book_page %}
+    <h2>Request Page</h2>
+    <table id="ptable">
+        <thead>
+            <tr>
+                <th>isbn</th>
+                <th>Accept</th>
+                <th>Deliverman Id</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if req_page %}
+                {% for r_page in req_page %}
+                    <tr>
+                        <td>{{r_page.isbn}}</td>
+                        <td>{{r_page.accepted}}</td>
+                        <td>{{r_page.deliveryManId}}</td>
+                        <td>{{r_page.time}}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <h1>I haven't requested for any book yet'!</h1>
+            {% endif %}
+
+        </tbody>
+{% endblock %}

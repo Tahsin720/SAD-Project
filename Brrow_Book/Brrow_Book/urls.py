@@ -33,4 +33,5 @@ urlpatterns = [
     path('likes/',views.count_likes, name='likes'),
     path('dislikes/',views.count_dislikes, name='dislikes'),
     path('my_book/',views.my_book_func, name='my_book'),
+    path('my_req/',views.my_request_func, name='my_req'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

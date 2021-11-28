@@ -8,24 +8,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-    <div class="container">
+<body style = "font-family: Arial; font-weight: normal;">
+    <div style = "text-align: center;">
         <h1>This is home page of {{request.user.username}} </h1>
     </div>
     {% block search_page %}
-
+ 
     {% endblock %}
-    <button class="btn"> <a class = "rating" href="{% url 'book' %}"> Book Page </a> </button>
-    <button class="btn"> <a class = "rating" href=""> My Request </a> </button>
-    <button class="btn"> <a class = "rating" href="{% url 'my_book' %}"> My Book </a> </button>
-    <button class="btn"> <a class = "rating" href="{% url 'donate' %}"> Donate Book </a> </button>
-    <button class="btn"> <a class = "rating" href="{% url 'signout' %}"> Sign Out </a></button>
+    <div style = "text-align: right;">
+        <button class="btn"> <a class = "rating" href="{% url 'book' %}"> Book Page </a> </button>
+        <button class="btn"> <a class = "rating" href="{% url 'my_req' %}"> My Request </a> </button>
+        <button class="btn"> <a class = "rating" href="{% url 'my_book' %}"> My Book </a> </button>
+        <button class="btn"> <a class = "rating" href="{% url 'donate' %}"> Donate Book </a> </button>
+        <button class="btn"> <a class = "rating" href="{% url 'signout' %}"> Sign Out </a></button>
+
+    </div>
     <style>
+            .button{
+                display: flex; 
+                align-items: center;
+                margin-left: 10px;
+                margin-right: -70px;
+                /* padding-right: 20px; */
+            }
+            .lk{
+                margin-right: 5px;
+            }
+            .req{
+                margin-right: 5px;
+            }
 			.btn{
 				background: #7868e6;
 				padding: 3px 5px;
 				border-radius: 5px;			
 			}
+            .button2{
+                display: flex; 
+                align-items: center;
+                margin-left: 9px;
+                margin-right: -38px;
+            }
 			.rating{
 				text-decoration: none;
 				color: white;

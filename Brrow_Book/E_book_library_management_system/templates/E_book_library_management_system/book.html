@@ -1,6 +1,6 @@
 {% extends 'E_book_library_management_system/base2.html' %}
 
-{% block search_page %}
+{% block search_page %}   
         <form action="{% url 'search' %}" method="POST">
             {% csrf_token %}
             <input type="text" name="search" placeholder="Search By Name" required>
@@ -45,38 +45,51 @@
                     <td>{{b_page.likes}}</td>
                     <td>{{b_page.dislikes}}</td>
                     <td>
-                        <form action = "{% url 'Request' %}" method="GET">
-                            {% csrf_token %}
-                            {% if b_page.user_name != request.user.username %}
-                                <input type="hidden" id="isbn" name="isbn" value={{b_page.isbn}}>
-                                <input type="hidden" id="uname" name="uname" value={{request.user.username}}>
-                                <input class="btn" type="submit" name="add" id="add" value="Request">
-                            {% endif %}
-                        </form>
-                        <form action = "{% url 'cancel Request' %}" method="GET">
-                            {% csrf_token %}
-                            {% if b_page.user_name != request.user.username %}
-                                <input type="hidden" id="isbn" name="isbn" value={{b_page.isbn}}>
-                                <input class="btn" type="submit" name="cancel" id="cancel" value="Cancel Request">
-                            {% endif %}
-                        </form>
+                        <div class="button">
+                            <div class="req">
+                                <form action = "{% url 'Request' %}" method="GET">
+                                    {% csrf_token %}
+                                    {% if b_page.user_name != request.user.username %}
+                                        <input type="hidden" id="isbn" name="isbn" value={{b_page.isbn}}>
+                                        <input type="hidden" id="uname" name="uname" value={{request.user.username}}>
+                                        <input class="btn" type="submit" name="add" id="add" value="Request">
+                                    {% endif %}
+                                </form>
+                            </div>
+                            
+                            <div class="cnl_req">
+                                <form action = "{% url 'cancel Request' %}" method="GET">
+                                    {% csrf_token %}
+                                    {% if b_page.user_name != request.user.username %}
+                                        <input type="hidden" id="isbn" name="isbn" value={{b_page.isbn}}>
+                                        <input class="btn" type="submit" name="cancel" id="cancel" value="Cancel Request">
+                                    {% endif %}
+                                </form>
+                            </div>
+                        </div>
                     </td>
                     
                     <td>
-                        <form action = "{% url 'likes' %}" method="GET">
-                            {% csrf_token %}
-                            {% if b_page.user_name != request.user.username %}
-                                <input type="hidden" id="isbn" name="isbn" value={{b_page.isbn}}>
-                                <input class="btn" type="submit" name="cancel" id="cancel" value="Like">
-                            {% endif %}
-                        </form>
-                        <form action = "{% url 'dislikes' %}" method="GET">
-                            {% csrf_token %}
-                            {% if b_page.user_name != request.user.username %}
-                                <input type="hidden" id="isbn" name="isbn" value={{b_page.isbn}}>
-                                <input class="btn" type="submit" name="cancel" id="cancel" value="Dislike">
-                            {% endif %}
-                        </form>
+                        <div class="button2">
+                            <div class="lk">
+                                <form action = "{% url 'likes' %}" method="GET">
+                                    {% csrf_token %}
+                                    {% if b_page.user_name != request.user.username %}
+                                        <input type="hidden" id="isbn" name="isbn" value={{b_page.isbn}}>
+                                        <input class="btn" type="submit" name="cancel" id="cancel" value="Like">
+                                    {% endif %}
+                                </form>
+                            </div>
+                            <div class="dlk">
+                                <form action = "{% url 'dislikes' %}" method="GET">
+                                    {% csrf_token %}
+                                    {% if b_page.user_name != request.user.username %}
+                                        <input type="hidden" id="isbn" name="isbn" value={{b_page.isbn}}>
+                                        <input class="btn" type="submit" name="cancel" id="cancel" value="Dislike">
+                                    {% endif %}
+                                </form>
+                            </div>
+                        </div>
                     </td>
 
                 </tr>
