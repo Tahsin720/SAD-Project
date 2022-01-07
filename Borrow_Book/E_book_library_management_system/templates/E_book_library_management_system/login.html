@@ -1,0 +1,56 @@
+{% extends 'E_book_library_management_system/base.html' %}
+{% load static %}
+{% block login_form %}
+<div class="container">
+	<div class="d-flex justify-content-center h-100">
+		<div class="card">
+			<div class="card-header">
+				<h3>Log In..</h3>
+				<!-- <div class="d-flex justify-content-end social_icon">
+					<span><i class="fab fa-facebook-square"></i></span>
+					<span><i class="fab fa-google-plus-square"></i></span>
+					<span><i class="fab fa-twitter-square"></i></span>
+				</div> -->
+			</div>
+			<div class="card-body">
+				<form action="{% url 'login' %}" method="POST"> 
+                    {% csrf_token %}
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user"></i></span>
+						</div>
+						<input type = "text" name = "user" placeholder = "Enter User name" required>
+						
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+						</div>
+						<input type = "Password" name = "password" placeholder="Enter Password" required>
+					</div>
+					<div class="form-group">
+						<input type="submit" value="Login" class="btn float-right login_btn">
+					</div>
+				</form>
+			</div>
+			<div>
+			</div>
+			<div class="card-footer">
+				<div class="d-flex justify-content-center links">
+					Don't have an account?<a href="{% url 'signup' %}">Sign Up</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+    <!-- <form action="{% url 'login' %}" method="POST"> 
+        {% csrf_token %}
+        <p>User name<font color =blue>*</font></p>
+        <input type = "text" name = "user" placeholder = "Enter User name" required>
+        <p>Password<font color =blue>*</font></p>
+        <input type = "Password" name = "password"placeholder="Enter Password" required>
+        <input type = "submit" name = "" value = "Login"><br>
+        <br>
+        <a href="{% url 'signup' %}"> Sign up </a>
+    </from> -->
+{% endblock %}

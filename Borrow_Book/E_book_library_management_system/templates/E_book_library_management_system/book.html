@@ -1,0 +1,100 @@
+{% extends 'E_book_library_management_system/base2.html' %}
+{% load static %}
+{% block header %}
+    <div style = "text-align: center;" color = "lightblue">
+        <h1 style = "color: rgb(33, 128, 160)"> Book feeds </h1>
+    </div>
+{% endblock %}
+
+
+{% block book_page %}
+    <style>
+            body{
+                background-image: url("{% static 'images/Book_page.jpg' %}");
+                background-size: cover;
+                background-repeat: no-repeat;
+                height: 100%;
+            }
+    </style>
+    <table id="ptable">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>isbn</th>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Description</th>
+                <th>User Name</th>
+                <th>Cost</th>
+                <th>Is Donated</th>
+                <th>Likes</th>
+                <th>Dislikes</th>
+                <th>Button</th>
+                <th>Rating</th>
+
+            </tr>
+        </thead>
+    <tbody>
+        {% if book_page %}
+            {% for b_page in book_page %}
+
+                <tr>
+                    <td> <img style="border-radius: 20px;" src="{{b_page.image.url}}" width="100" height="100"></td>
+                    
+                    <td>{{b_page.isbn}}</td>
+                    <td>{{b_page.name}}</td>
+                    <td>{{b_page.author}}</td>
+                    <td>{{b_page.description}}</td>
+                    <td>{{b_page.user_name}}</td>
+                    <td>{{b_page.cost}}</td>
+                    <td>{{b_page.isdonated}}</td>
+                    <td>{{b_page.likes}}</td>
+                    <td>{{b_page.dislikes}}</td>
+                    <td>
+                        <div class="button">
+                            <div class="req">
+                                <form action = "{% url 'Request' %}" method="GET">
+                                    {% csrf_token %}
+                                    {% if b_page.user_name != request.user.username %}
+                                        <input type="hidden" id="isbn" name="isbn" value={{b_page.isbn}}>
+                                        <input type="hidden" id="book_name" name="book_name" value={{b_page.name}}>
+                                        <input type="hidden" id="uname" name="uname" value={{request.user.username}}>
+                                        <input class="btn" type="submit" name="add" id="add" value="Request">
+                                    {% endif %}
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                    
+                    <td>
+                        <div class="button2">
+                            <div class="lk">
+                                <form action = "{% url 'likes' %}" method="GET">
+                                    {% csrf_token %}
+                                    {% if b_page.user_name != request.user.username %}
+                                        <input type="hidden" id="isbn" name="isbn" value={{b_page.isbn}}>
+                                        <input class="btn" type="submit" name="cancel" id="cancel" value="Like">
+                                    {% endif %}
+                                </form>
+                            </div>
+                            <div class="dlk">
+                                <form action = "{% url 'dislikes' %}" method="GET">
+                                    {% csrf_token %}
+                                    {% if b_page.user_name != request.user.username %}
+                                        <input type="hidden" id="isbn" name="isbn" value={{b_page.isbn}}>
+                                        <input class="btn" type="submit" name="cancel" id="cancel" value="Dislike">
+                                    {% endif %}
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+            {% endfor %}
+        {% else %}
+            <h1>No data!</h1>
+        {% endif %}
+
+    </tbody>
+    
+{% endblock %}

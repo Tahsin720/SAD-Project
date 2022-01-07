@@ -1,0 +1,75 @@
+{% extends 'E_book_library_management_system/base2.html' %}
+{% load static %}
+{% block header %}
+    <div style = "text-align: center;" color = "lightblue">
+        <h1 style = "color: rgb(33, 128, 160)"> Donate Book </h1>
+    </div>
+{% endblock %}
+
+{% block book_page %}
+<style>
+    body{
+        background-image: url("{% static 'images/Donate_image.jpg' %}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100%;
+    }
+    
+</style>
+<div class="container" style="align-content: center;">
+    <div class="row">
+        <div class="col-md-6">
+            <form action="{% url 'donate' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group"> 	 
+                    <label for="firstname"><font color =red>*</font> isbn: </label>
+                        <input class="form-control" type="text" name = "isbn" placeholder = "Enter isbn"required> 
+                        <div id="errFirst"></div>    
+                </div>
+                <div class="form-group"> 	 
+                    <label for="Book_Name"><font color =red>*</font> Name: </label>
+                        <input class="form-control" type="text" name = "name" placeholder="Enter Book Name"required> 
+                            <div id="errFirst"></div>    
+                </div>
+                <div class="form-group"> 	 
+                    <label for="Book_Name"><font color =red>*</font> Author: </label>
+                        <input class="form-control" type="text" name = "author"placeholder="Enter Author"required> 
+                            <div id="errFirst"></div>    
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1"><font color =red>*</font> Description:</label>
+                    <textarea class="form-control" name="description" rows="4" cols="50"></textarea>
+                </div>
+                <div class="form-group"> 	 
+                    <label for="User_Name"><font color =red>*</font> User Name: </label>
+                    <input class="form-control" type="text" name = "user" value = "{{request.user.username}}"required> 
+                    <div id="errFirst"></div>    
+                </div>
+                 	 
+                
+                <label for="Donate"><font color =red>*</font> IsDonated? </label>  
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="yes" name="IsDonated" value="Yes" required>
+                    <label class="form-check-label" for="exampleRadios1">
+                      Yes
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="no" name="IsDonated" value="No" required>
+                    <label class="form-check-label" for="exampleRadios2">
+                      No
+                    </label>
+                </div>
+    
+                <div class="form-group">
+                    <label for="exampleFormControlFile1"><font color =red>*</font>Image</label>
+                    <input type="file" class="form-control-file" name="photo" placeholder="Enter Image" required>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Upload Image" name="submit">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'E_book_library_management_system/base3.html' %}
+{% block header %}
+    <div style = "text-align: center;" color = "lightblue">
+        <h1 style = "color: rgb(33, 128, 160)"> Edit your review </h1>
+    </div>
+{% endblock %}
+{% block Review_page %}
+        {% if rev_page %}
+            {% for r_page in rev_page %}
+            <div class="container" style="align-content: center;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <form action="{% url 'update_edit' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group"> 	 
+                                <label for="User_Name"><font color =red>*</font> User Name: </label>
+                                    <input class="form-control" name="uname" value="{{request.user.username}}" required> 
+                                    <div id="errFirst"></div>    
+                            </div>
+                            <div class="form-group"> 	 
+                                <label for="Book_Name"><font color =red>*</font> Name: </label>
+                                    <input class="form-control" name="book_name" placeholder="Book Name" value="{{r_page.name}}" required>
+                                        <div id="errFirst"></div>    
+                            </div>
+                            <div class="form-group"> 	 
+                                <label for="Book_Name"><font color =red>*</font> Author: </label>
+                                    <input class="form-control" type="text"name="book_author" placeholder="Book Author" value="{{r_page.author}}" required>
+                                        <div id="errFirst"></div>    
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1"><font color =red>*</font> Write Post: </label>
+                                <textarea class="form-control" name="post" rows="4" cols="50" required>{{r_page.text}}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" id="Id" name="Id" value={{r_page.Id}}>
+                                <input type = "submit" name = "save" value = "Save">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+                <!-- <form action="{% url 'update_edit' %}" method="POST">
+                    {% csrf_token %}
+                    <p>User Name<font color =red>*</font></p>
+                    <input type="text" name="uname" value="{{request.user.username}}" required>
+                    <p>Book Name<font color =red>*</font></p>
+                    <input type="text" name="book_name" placeholder="Book Name" value="{{r_page.name}}" required>
+                    <p>Book Author<font color =red>*</font></p>
+                    <input type="text" name="book_author" placeholder="Book Author" value="{{r_page.author}}" required><br><br>
+                    <label>Write Post<font color =red>*</font></label><br><br>
+                    <textarea name="post" rows="4" cols="50" required>
+                    {{r_page.text}}
+                    </textarea> <br> <br>
+                    <input type="hidden" id="Id" name="Id" value={{r_page.Id}}>
+                    <input type = "submit" name = "save" value = "Save">
+                </form> -->
+            {% endfor %}
+        {% endif %}
+{% endblock %}    

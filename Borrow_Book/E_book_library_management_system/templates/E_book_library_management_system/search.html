@@ -1,0 +1,70 @@
+{% extends 'E_book_library_management_system/base2.html' %}
+
+
+{% block header %}
+    <div style = "text-align: center;" color = "lightblue">
+        <h1 style = "color: rgb(33, 128, 160)"> Searched Book Details </h1>
+    </div>
+{% endblock %}
+
+{% block book_page %}
+    <style>
+        #ptable{
+                width: 100%;
+                border: 1px solid rgb(126, 126, 175);
+                border-collapse: collapse;
+        }
+                
+        #ptable th{
+                border: 1px solid rgb(126, 126, 175);
+                border-collapse: collapse;
+                text-align: center;
+                color: black;
+        }
+        #ptable td{
+                border: 1px solid rgb(126, 126, 175);
+                border-collapse: collapse;
+                text-align: center;
+                color: black;
+        }
+                
+        #ptable tr:hover{
+            background-color: #787781;
+        }
+    </style>
+    <table id="ptable">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>isbn</th>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Description</th>
+                <th>User Name</th>
+                <th>Is Donated</th>
+                <th>Likes</th>
+                <th>Dislikes</th>
+            </tr>
+        </thead>
+    <tbody>
+        {% if book %}
+            {% for b in book %}
+
+                <tr>
+                    <td> <img src="{{b.image.url}}" width="100" height="100"></td>
+                    <td>{{b.isbn}}</td>
+                    <td>{{b.name}}</td>
+                    <td>{{b.author}}</td>
+                    <td>{{b.description}}</td>
+                    <td>{{b.user_name}}</td>
+                    <td>{{b.isdonated}}</td>
+                    <td>{{b.likes}}</td>
+                    <td>{{b.dislikes}}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <h1>No such data found!</h1>
+        {% endif %}
+
+    </tbody>
+{% endblock %}

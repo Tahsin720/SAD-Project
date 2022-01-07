@@ -1,0 +1,43 @@
+{% extends 'E_book_library_management_system/base3.html' %}
+
+{% block header %}
+    <div style = "text-align: center;" color = "lightblue">
+        <h1 style = "color: rgb(33, 128, 160)"> Make Review </h1>
+    </div>
+{% endblock %}
+
+{% block Review_page %}
+
+    <div class="container" style="align-content: center;">
+        <div class="row">
+            <div class="col-md-6">
+                <form action="{% url 'Post' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group"> 	 
+                        <label for="User_Name"><font color =red>*</font> User Name: </label>
+                            <input class="form-control" name="uname" value="{{request.user.username}}" required> 
+                            <div id="errFirst"></div>    
+                    </div>
+                    <div class="form-group"> 	 
+                        <label for="Book_Name"><font color =red>*</font> Name: </label>
+                            <input class="form-control" name="book_name" placeholder="Book Name" required>
+                                <div id="errFirst"></div>    
+                    </div>
+                    <div class="form-group"> 	 
+                        <label for="Book_Name"><font color =red>*</font> Author: </label>
+                            <input class="form-control" type="text" name="book_author" placeholder="Book Author" required>
+                                <div id="errFirst"></div>    
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1"><font color =red>*</font> Write Post: </label>
+                        <textarea class="form-control" name="post" rows="4" cols="50" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type = "submit" name = "save" value = "Save">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %} 

@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="{% static 'images/book-icon.jpg' %}" style="height:50px; width:50px; border-radius:50%; margin-top: -18px">
+    </a>
+
+    <div style = "text-align: center;" color = "lightblue">
+        <h1 style = "color: rgb(33, 128, 160)"> My Profile </h1>
+        <!-- <input type="text" class="form-control" value = "{{p_page.balance}}" disabled>  -->
+    </div>
+    {% if profile_page %}
+        {% for p_page in profile_page %}   
+        <hr>
+        <div class="form-group">
+            <div style="text-align: right; ">
+                <label for="first_name"><h4 style="margin-right: 5px; color: rgb(33, 128, 160);"> Balance: </h4></label>
+                <input style="text-align: center; width: 150px; margin-right: 215px; border: 1px solid gray; color: black" value = "{{p_page.balance}}" disabled> 
+            </div>
+        </div>
+        <div class="container bootstrap snippet">
+            <div class="row">
+                <div class="col-sm-3" style="justify-content:center;"><!--left col-->
+                    <div class="text-center">
+                        <div class="title"><h1>{{p_page.user}}</h1></div>
+                        <img src="{{p_page.image.url}}" class="avatar  img-thumbnail" alt="avatar" style="height: 200px; width:200px; border-radius: 50%;">
+                        <h6>Upload a different photo...</h6>
+                        <br>
+                    </div>
+                </div><!--/col-3-->
+                <div class="col-sm-9">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                          <a class="nav-link active" aria-current="page" href="{% url 'profile' %}">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="{% url 'home' %}">Home</a>
+                        </li> 
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="home">
+                        
+                            <form class="form" action="{% url 'profile_func' %}" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <div class="col-xs-6">
+                                        <label for="first_name"><h4>First name<font color =red>*</font></h4></label>
+                                        <input type="text" class="form-control" name = "first_name" value = "{{p_page.user.first_name}}"required> 
+                                    </div>
+                                </div>
+
+                                <div class="form-group"> 
+                                    <div class="col-xs-6">
+                                        <label for="last_name"><h4>Last name<font color =red>*</font></h4></label>
+                                        <input type="text" class="form-control" name = "last_name" value = "{{p_page.user.last_name}}"required>
+                                    </div>
+                                </div>
+                    
+                                <div class="form-group">
+                                    <div class="col-xs-6">
+                                        <label for="mobile"><h4>Mobile<font color =red>*</font></h4></label>
+                                        <input type="text" class="form-control" name="mobile" value = "{{p_page.mobile_num}}" placeholder="enter mobile number" title="enter your mobile number if any.">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-xs-6">
+                                        <label for="email"><h4>Email<font color =red>*</font></h4></label>
+                                        <input type="email" class="form-control" name = "email" value = "{{p_page.user.email}}"required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-xs-6">
+                                        <label for="text"><h4>Location<font color =red>*</font></h4></label>
+                                        <input type="text" class="form-control" name="location" value = "{{p_page.location}}" placeholder="somewhere">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-xs-6">
+                                        <label for="password"><h4>Password</h4></label>
+                                        <input type="password" class="form-control" name = "password" placeholder = "Enter Current your password">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3" style="margin-right: 800px; margin-left: -300px;">
+                                    <input type="file" class="text-center center-block file-upload" name="photo" style="border:2px solid gray; padding-right: -500px">
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-xs-6">
+                                        <label for="password2"><h4>New Password</h4></label>
+                                        <input type="password" class="form-control" name = "new_password" placeholder="Enter New Password">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-xs-6">
+                                        <label for="password2"><h4>Confirm New Password</h4></label>
+                                        <input type="password" class="form-control" name = "re_password" placeholder="Re_type new password">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <br>
+                                        <button class="btn btn-lg btn-success" type="submit"value="Update Profile" name="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save </button>
+                                        <button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div><br><br>
+        </div>
+        {%endfor%}
+    {%endif%}    
+
+</body>
+</html>
+
+
+
+
+    

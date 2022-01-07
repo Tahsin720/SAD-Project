@@ -1,0 +1,253 @@
+{% extends 'E_book_library_management_system/base3.html' %}
+
+{% block header %}
+    <div style = "text-align: center;" color = "lightblue">
+        <h1 style = "color: rgb(33, 128, 160)"> Review Feeds </h1>
+    </div>
+
+{% endblock %}
+
+{% block Review_page %}
+    <style>
+            *{
+                margin: 0px;
+                padding: 0px;
+                font-family: poppins;
+                box-sizing: border-box;
+            }
+            a{
+                text-decoration: none;
+            }
+            #testimonials{
+                /* justify-content: center; */
+                /* align-items: center; */
+                flex-direction: row;
+                width:100%;
+            }
+            .testimonial-heading{
+                letter-spacing: 1px;
+                margin: 30px 0px;
+                padding: 10px 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            .testimonial-heading span{
+                font-size: 1.3rem;
+                color: #252525;
+                margin-bottom: 10px;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+            }
+            .testimonial-box-container{
+               
+                /* justify-content: center; */
+                margin-left:15%;
+                
+               
+            }
+            .testimonial-box{
+                float:left;
+                width:25%;
+                box-shadow: 2px 2px 30px rgba(0,0,0,0.1);
+                background-color: #ffffff;
+                padding: 20px;
+                margin: 15px;
+                cursor: pointer;
+            }
+            .reviewButtons{
+                display: inline-flex;
+                
+                
+            }
+            .reviewButtons div{
+                padding-right: 5px;
+
+            }
+            .profile-img{
+                width:50px;
+                height: 50px;
+                border-radius: 50%;
+                overflow: hidden;
+                margin-right: 10px;
+            }
+            .profile-img img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+            }
+            .profile{
+                display: flex;
+                align-items: center;
+            }
+            .name-user{
+                display: flex;
+                flex-direction: column;
+            }
+            .name-user strong{
+                color: #3d3d3d;
+                font-size: 1.1rem;
+                letter-spacing: 0.5px;
+            }
+            .name-user span{
+                color: #979797;
+                font-size: 0.8rem;
+            }
+            .reviews{
+                color: #f9d71c;
+            }
+            .box-top{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+            .client-comment p{
+                font-size: 0.9rem;
+                color: #4b4b4b;
+            }
+            .testimonial-box:hover{
+                transform: translateY(-10px);
+                transition: all ease 0.3s;
+            }
+            
+            @media(max-width:1060px){
+                .testimonial-box{
+                    width:45%;
+                    padding: 10px;
+                }
+            }
+            @media(max-width:790px){
+                .testimonial-box{
+                    width:100%;
+                }
+                .testimonial-heading h1{
+                    font-size: 1.4rem;
+                }
+            }
+            @media(max-width:340px){
+                .box-top{
+                    flex-wrap: wrap;
+                    margin-bottom: 10px;
+                }
+                .reviews{
+                    margin-top: 10px;
+                }
+            }
+            ::selection{
+                color: #ffffff;
+                background-color: #252525;
+            }
+    </style>
+    {% if rev_page %}
+        {% for r_page in rev_page %}
+         <!--testimonials-box-container------>
+         <section id="testimonials">
+            <!--testimonials-box-container------>
+            <div class="testimonial-box-container">
+                <!--BOX-1-------------->
+                <div class="testimonial-box">
+                    <!--top------------------------->
+                    <div class="box-top">
+                        <!--profile----->
+                        <div class="profile">
+                            <!--img---->
+                            <div class="profile-img">
+                                <img src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png" />
+                            </div>
+                            <!--name-and-username-->
+                            <div class="name-user">
+                                <strong>{{r_page.posted_by}}</strong>
+                                <span>Book Name: {{r_page.name}}</span>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!--Comments---------------------------------------->
+                    <div class="client-comment">
+                        <p>{{r_page.text}}</p>
+                    </div><br>
+                <div class="reviewButtons">
+                     <div class="edit">
+                        <form action = "{% url 'Edit' %}" method="GET">
+                            {% csrf_token %}
+                            {% if r_page.posted_by == request.user.username %}
+                                <input type="hidden" id="Id" name="Id" value={{r_page.Id}}>
+                                <input class="btn" type="submit" name="Edit" id="cancel" value="Edit">
+                            {%endif%}
+                        </form>
+                    </div>
+                    <div class="delete">
+                        <form action = "{% url 'del_Review' %}" method="GET">
+                            {% csrf_token %}
+                            {% if r_page.posted_by == request.user.username %}
+                                <input type="hidden" id="Id" name="Id" value={{r_page.Id}}>
+                                <input class="btn" type="submit" name="delete" id="delete" value="Delete">
+                            {%endif%}
+                        </form>
+                    </div>
+                    <div class="report">
+                        <form action = "{% url 'report' %}" method="GET">
+                            {% csrf_token %}
+                            {% if r_page.posted_by != request.user.username %}
+                                <input type="hidden" id="Id" name="Id" value={{r_page.Id}}>
+                                <input type="hidden" id="user_name" name="user_name" value={{request.user.username}}>
+                                <input class="btn" type="submit" name="report" id="report" value="Report">
+                            {%endif%}
+                        </form>
+                    </div>
+                </div>
+                </div>
+            </div>
+          </section>
+    
+           
+            <!-- <div class="button">
+                <h2 style = "margin: 5px">Posted By: <span style = "font-weight: normal; margin-left: 5px">{{r_page.posted_by}}</span></h2>
+                <div class="edit">
+                    <form action = "{% url 'Edit' %}" method="GET">
+                        {% csrf_token %}
+                        {% if r_page.posted_by == request.user.username %}
+                            <input type="hidden" id="Id" name="Id" value={{r_page.Id}}>
+                            <input class="btn" type="submit" name="Edit" id="cancel" value="Edit">
+                        {%endif%}
+                    </form>
+                </div>
+                
+                <div class="delete">
+                    <form action = "{% url 'del_Review' %}" method="GET">
+                        {% csrf_token %}
+                        {% if r_page.posted_by == request.user.username %}
+                            <input type="hidden" id="Id" name="Id" value={{r_page.Id}}>
+                            <input class="btn" type="submit" name="delete" id="delete" value="Delete">
+                        {%endif%}
+                    </form>
+                </div>
+                                
+                <div class="report">
+                    <form action = "{% url 'report' %}" method="GET">
+                        {% csrf_token %}
+                        {% if r_page.posted_by != request.user.username %}
+                            <input type="hidden" id="Id" name="Id" value={{r_page.Id}}>
+                            <input type="hidden" id="user_name" name="user_name" value={{request.user.username}}>
+                            <input class="btn" type="submit" name="report" id="report" value="Report">
+                        {%endif%}
+                    </form>
+                </div>
+            </div>
+            
+            <h3>Book Name: <span style = "font-weight: normal;">{{r_page.name}}</span> Author: <span style = "font-weight: normal;">{{r_page.author}}</h3>
+            <div class="container">
+                <section>{{r_page.text}}</section>
+            </div> -->
+            
+        {% endfor %}
+    
+    {% else %}
+        <h1> This is Review page </h1>
+        <h3>No such review have been posted!</h3>
+    {%endif%}
+{% endblock %}

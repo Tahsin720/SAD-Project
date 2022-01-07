@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Payment Service</title>
+  </head>
+
+  <body>
+      <style>
+        .btn{
+          border: solid 1px;
+        }
+
+        .btn:hover{
+              background-color: lightgrey !important;
+        }
+        .btn2:hover{
+              background-color: rgb(53, 150, 53) !important;
+        }
+      </style>
+      <!-- Navigation -->
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="collapse navbar-collapse">
+                <a class="navbar-brand" href="{% url 'home' %}">
+                    <img src="{% static 'images/book-icon.jpg' %}" style="height:50px; width:50px; border-radius:50%;">
+                </a>
+                <a class = "nav-link" href="{% url 'profile' %}"> Profile </a>
+                <a class = "nav-link" href="{% url 'book' %}"> Book Page </a>
+                <a class = "nav-link" href="{% url 'my_req' %}"> My Request </a>
+                <a class = "nav-link" href="{% url 'my_book' %}"> My Book </a>
+                <a class = "nav-link" href="{% url 'donate' %}"> Donate Book </a>
+                <a class = "nav-link" href="{% url 'Review' %}"> Review </a>
+                <a class = "nav-link" href="{% url 'choose_plan' %}"> Payment </a>    
+                <a class = "nav-link" href="{% url 'signout' %}"> Sign Out </a>
+                <div style="padding-left: 330px;">
+                    <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="POST">
+                        {% csrf_token %}
+                        <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search By Name" aria-label="Search" required>
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div> 
+            </div>
+      </nav><br>
+      <div style = "text-align: center;" color = "lightblue">
+          <h1 style = "color: rgb(33, 128, 160)"> Complete Payment </h1>
+      </div>
+      <!-- Main -->
+      <div class="container" style="align-content: center;">
+        <div class="row">
+            <div class="col-md-6">
+                <form clas action="{% url 'payment_func' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                      <label class="input-group-text" for="payment-method">Select Method</label>
+                      <select class="form-select" id="payment-method" , name="payment-method">
+                        <option selected>bKash</option>
+                        <option value="1">Rockect</option>
+                        <option value="2">Nagod</option>
+                        <option value="3">UCash</option>
+                      </select>
+                    </div>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">Paid By</span>
+                      <input type="text" class="form-control" name = "paid_by" value = "{{request.user.username}}" autocomplete="off">
+                    </div>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">Account No.</span>
+                      <input type="text" name = "acc_no" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Amount</span>
+                        <input type="text" name = "amount" class="form-control" value="{{amount}}">
+                    </div>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">Pin No</span>
+                      <input type="password" name = "password" class="form-control" value>
+                    </div>
+                    <div class="col-12 text-center">
+                      <a class="btn btn-lg" href="{% url 'choose_plan'%}">Cancel</a>
+                      <button type="submit" class="btn btn-lg btn-success btn2">Confirm</button>
+                    </div>
+                  </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

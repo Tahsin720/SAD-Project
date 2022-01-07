@@ -1,0 +1,118 @@
+{% extends 'E_book_library_management_system/base2.html' %}
+
+{% block header %}
+    <div style = "text-align: center;" color = "lightblue">
+        <h1 style = "color: rgb(33, 128, 160)"> Choose Your Plan </h1>
+    </div>
+{% endblock %}
+
+
+{% block book_page %}
+    <style>
+        body {
+            background-color: #E0E0E0
+        }
+
+        .card-pricing.popular {
+            z-index: 1;
+            border: 1px solid #007bff
+        }
+
+        .card-pricing .list-unstyled li {
+            padding: .5rem 0;
+            color: #6c757d;
+            font-weight: 300
+        }
+
+        .btn {
+            border-radius: 1px;
+            font-weight: 300
+        }
+
+        .hvr:hover {
+            color: #fff;
+            background-color: #007bff;
+            border: 1px solid #007bff !important
+        }
+        .hvr2:hover {
+            color: #fff;
+            background-color: lightskyblue !important;
+            border: 1px solid #007bff !important;
+        }
+
+    </style>
+
+    <div class="container mb-5 mt-5">
+        <div class="pricing card-deck flex-column flex-md-row mb-3">
+            <div class="card card-pricing text-center px-3 mb-4 hvr2"> <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">Starter</span>
+                <div class="bg-transparent card-header pt-4 border-0">
+                    <h1 class="h1 font-weight-normal text-primary text-center mb-0" data-pricing-value="100">৳ <span class="price">100</span></h1>
+                </div>
+                <div class="card-body pt-0">
+                    <ul class="list-unstyled mb-4">
+                        <li>105 Book Coin</li>
+                        <li>5+ Books</li>
+                        <li>You save 5%</li>
+                    </ul> 
+                    <form action = "{% url 'payment' %}" method="GET">
+                        {% csrf_token %}
+                        <input type="hidden" id = "amount" name="amount" value="100">
+                        <input class="btn btn-outline-secondary mb-3 hvr" type="submit" value= "Payment Now"></input>
+                    </form>
+                </div>
+            </div>
+            <div class="card card-pricing popular shadow text-center px-3 mb-4 hvr2"> <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">Recommended</span>
+                <div class="bg-transparent card-header pt-4 border-0">
+                    <h1 class="h1 font-weight-normal text-primary text-center mb-0" data-pricing-value="1000">৳<span class="price">1000</span></h1>
+                </div>
+                <div class="card-body pt-0">
+                    <ul class="list-unstyled mb-4">
+                        <li>1200 Book Coin</li>
+                        <li>60 Books</li>
+                        <li>You save 20%</li>
+                    </ul> 
+                    <form action = "{% url 'payment' %}" method="GET">
+                        {% csrf_token %}
+                        <input type="hidden" id = "amount" name="amount" value="1000">
+                        <input class="btn btn-outline-secondary mb-3 hvr" type="submit" value= "Payment Now"></input>
+                    </form>
+                </div>
+            </div>
+            <div class="card card-pricing text-center px-3 mb-4 hvr2"> <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">Regular</span>
+                <div class="bg-transparent card-header pt-4 border-0">
+                    <h1 class="h1 font-weight-normal text-primary text-center mb-0" data-pricing-value="500">৳<span class="price">500</span></h1>
+                </div>
+                <div class="card-body pt-0">
+                    <ul class="list-unstyled mb-4">
+                        <li>650 Book Coin</li>
+                        <li>11 Books</li>
+                        <li>You save 10%</li>
+                    </ul>
+                    <form action = "{% url 'payment' %}" method="GET">
+                        {% csrf_token %}
+                        <input type="hidden" id = "amount" name="amount" value="500">
+                        <input class="btn btn-outline-secondary mb-3 hvr" type="submit" value= "Payment Now"></input>
+                    </form>
+                    
+                </div>
+            </div>
+            <div class="card card-pricing text-center px-3 mb-4 hvr2"> <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">Reader</span>
+                <div class="bg-transparent card-header pt-4 border-0">
+                    <h1 class="h1 font-weight-normal text-primary text-center mb-0" data-pricing-value="2500">৳<span class="price">2000</span></h1>
+                </div>
+                <div class="card-body pt-0">
+                    <ul class="list-unstyled mb-4">
+                        <li>3000 Book Coin</li>
+                        <li>120+ Books</li>
+                        <li>You save 35%</li>
+                    </ul> 
+                    <form action = "{% url 'payment' %}" method="GET">
+                        {% csrf_token %}
+                        <input type="hidden" id = "amount" name="amount" value="2500">
+                        <input class="btn btn-outline-secondary mb-3 hvr" type="submit" value= "Payment Now"></input>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

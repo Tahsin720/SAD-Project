@@ -1,0 +1,71 @@
+{% extends 'E_book_library_management_system/base2.html' %}
+{% load static %}
+{% block header %}
+    <div style = "text-align: center;" color = "lightblue">
+        <h1 style = "color: rgb(33, 128, 160)"> This books are donated by you! </h1>
+    </div>
+{% endblock %}
+{% block book_page %}
+
+<style>
+    body{
+        background-image: url("{% static 'images/Book_page.jpg' %}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100%;
+    }
+</style>
+<table id="ptable">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>isbn</th>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Is Donated</th>
+            <th>Likes</th>
+            <th>Dislikes</th>
+            <th>Button</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if book_page %}
+            {% for b_page in book_page %}
+                <tr>
+                    <td> <img style="border-radius: 20px;" src="{{b_page.image.url}}" width="100" height="100"></td>
+                    <td>{{b_page.isbn}}</td>
+                    <td>{{b_page.name}}</td>
+                    <td>{{b_page.author}}</td>
+                    <td>{{b_page.isdonated}}</td>
+                    <td>{{b_page.likes}}</td>
+                    <td>{{b_page.dislikes}}</td>
+                    <td>                                                   
+                        <div class="button3">
+                            <div class="delete">
+                                <form action = "{% url 'Delete_book' %}" method="GET">
+                                    {% csrf_token %}
+                                    {% if b_page.user_name == request.user.username %}
+                                        <input type="hidden" id="isbn" name="isbn" value={{b_page.isbn}}>
+                                        <input class="btn" type="submit" name="Delete" id="Delete" value="Delete">
+                                    {% endif %}
+                                </form>
+                            </div>
+                            <div class="update">
+                                <form action = "{% url 'edit_book' %}" method="GET">
+                                    {% csrf_token %}
+                                    {% if b_page.user_name == request.user.username %}
+                                        <input type="hidden" id="isbn" name="isbn" value={{b_page.isbn}}>
+                                        <input class="btn" type="submit" name="add" id="add" value="Edit">
+                                    {% endif %}
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <h1>I haven't donated any book yet'!</h1>
+        {% endif %}
+
+    </tbody>
+{% endblock %}

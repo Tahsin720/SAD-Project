@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"> -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Bootsrap 4 CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+    <!--Fontawesome CDN-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <title>Borrow Book</title>
+</head>
+
+<body>
+    <style>
+
+        .button{
+            display: flex; 
+            align-items: center;
+            margin-left: 14px;
+            margin-right: -48px;
+            /* padding-right: 20px; */
+        }
+        .lk{
+            margin-right: 5px;
+        }
+        .req{
+            margin-right: 19px;
+            margin-left: -8px;
+        }
+        .edit{
+            margin-right: 20px;
+        }
+        .delete{
+            margin-left: 35px;
+        }
+        .update{
+            margin-left: 5px;
+        }
+        .button2{
+            display: flex; 
+            align-items: center;
+            margin-left: 9px;
+            margin-right: -49px;
+        }
+        .button3{
+            display: flex; 
+            align-items: center;
+            margin-right: -70px;
+            
+        }
+        .rating{
+            text-decoration: none;
+            color: white;
+        }
+        #ptable{
+            width: 100%;
+            border: 1px solid rgb(126, 126, 175);
+            border-collapse: collapse;
+        }
+        
+        #ptable th, #ptable td{
+            border: 1px solid rgb(126, 126, 175);
+            border-collapse: collapse;
+            text-align: center;
+            color: rgb(255, 251, 251);
+        }
+        
+        #ptable tr:hover{
+            background-color: #787781;
+        }
+
+    </style>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img src="{% static 'images/book-icon.jpg' %}" style="height:50px; width:50px; border-radius:50%;">
+            </a>
+            <a class = "nav-link" href="{% url 'profile' %}"> Profile </a>
+            <a class = "nav-link" href="{% url 'book' %}"> Book Page </a>
+            <a class = "nav-link" href="{% url 'my_req' %}"> My Request </a>
+            <a class = "nav-link" href="{% url 'my_book' %}"> My Book </a>
+            <a class = "nav-link" href="{% url 'donate' %}"> Donate Book </a>
+            <a class = "nav-link" href="{% url 'Review' %}"> Review </a>
+            <a class = "nav-link" href="{% url 'choose_plan' %}"> Payment </a>    
+            <a class = "nav-link" href="{% url 'signout' %}"> Sign Out </a>
+            <div style="padding-left: 330px;">
+                <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="POST">
+                    {% csrf_token %}
+                    <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search By Name" aria-label="Search" required>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div> 
+        </div>
+    </nav><br>
+    {% block header %}
+ 
+    {% endblock %}
+
+    {% block book_page %}
+    
+    {% endblock %}
+
+</body>
+</html>

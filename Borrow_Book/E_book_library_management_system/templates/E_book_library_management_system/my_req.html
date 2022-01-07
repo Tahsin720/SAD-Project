@@ -1,0 +1,77 @@
+{% extends 'E_book_library_management_system/base2.html' %}
+{% load static %}
+{% block header %}
+    <div style = "text-align: center;">
+        <h1 style = "color: rgb(248, 9, 9)"> You made request for this books! </h1>
+    </div>
+{% endblock %}
+
+{% block book_page %}
+<style>
+    body{
+        background-image: url("{% static 'images/Request.jpg' %}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100%;
+    }
+    #ptable{
+            width: 100%;
+            border: 1px solid rgb(126, 126, 175);
+            border-collapse: collapse;
+    }
+            
+    #ptable th{
+            border: 1px solid rgb(126, 126, 175);
+            border-collapse: collapse;
+            text-align: center;
+            /* color: rgb(35, 243, 35) */
+    }
+    #ptable td{
+            border: 1px solid rgb(126, 126, 175);
+            border-collapse: collapse;
+            text-align: center;
+            color: rgb(35, 243, 35)
+    }
+            
+    #ptable tr:hover{
+        background-color: #787781;
+    }
+</style>
+
+    <table id="ptable">
+        <thead>
+            <tr>
+                <th>isbn</th>
+                <th>Accept</th>
+                <th>Deliverman Id</th>
+                <th>Time</th>
+                <th>Button</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if req_page %}
+                {% for r_page in req_page %}
+                    <tr>
+                        <td>{{r_page.isbn}}</td>
+                        <td>{{r_page.accepted}}</td>
+                        <td>{{r_page.deliveryManId}}</td>
+                        <td>{{r_page.time}}</td>
+                        <td>                            
+                            <div class="cnl_req">
+                                <form action = "{% url 'cancel Request' %}" method="GET">
+                                    {% csrf_token %}
+                                    {% if r_page.requester == request.user.username %}
+                                        <input type="hidden" id="isbn" name="isbn" value={{r_page.isbn}}>
+                                        <input class="btn" type="submit" name="cancel" id="cancel" value="Cancel Request">
+                                    {% endif %}
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <h1>I haven't requested for any book yet'!</h1>
+            {% endif %}
+
+        </tbody>
+{% endblock %}
