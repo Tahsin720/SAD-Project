@@ -71,26 +71,43 @@
                     </div>
                     <div class="input-group mb-3">
                       <span class="input-group-text">Account No.</span>
-                      <input type="text" name = "acc_no" class="form-control" autocomplete="off">
+                      <input type="text" id = "acc_no" name = "acc_no" class="form-control" autocomplete="off" required>
+                      <span style="color: red" id = "errAcc"></span>
+                    </div>
+                    
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Amount<font color =red>*</font></span>
+                        <input type="text" id="amount" name = "amount" class="form-control" value="{{amount}}">
+                        
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text">Amount</span>
-                        <input type="text" name = "amount" class="form-control" value="{{amount}}">
-                    </div>
-                    <div class="input-group mb-3">
-                      <span class="input-group-text">Pin No</span>
-                      <input type="password" name = "password" class="form-control" value>
+                      <span class="input-group-text">Pin No<font color =red>*</font></span>
+                      <input type="password" id = "password" name = "password" class="form-control" required>
                     </div>
                     <div class="col-12 text-center">
                       <a class="btn btn-lg" href="{% url 'choose_plan'%}">Cancel</a>
-                      <button type="submit" class="btn btn-lg btn-success btn2">Confirm</button>
+                      <button type="submit" onclick = "return validation()" class="btn btn-lg btn-success btn2">Confirm</button>
                     </div>
                   </div>
-
                 </form>
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        function validation(){
+            var acc_no = document.getElementById("acc_no").value;
+            if(isNaN(acc_no)){
+              document.getElementById("errAcc").innerHTML ="** Please enter a numeric value**";
+              return false;
+            }
+            if(acc_no.length != 11){
+              document.getElementById("errAcc").innerHTML ="** Invalid Number **";
+              return false;
+            } 
+            else{
+              alert("Payment Successfully Done!")
+            }
+        }
+    </script>
 </body>
-
 </html>

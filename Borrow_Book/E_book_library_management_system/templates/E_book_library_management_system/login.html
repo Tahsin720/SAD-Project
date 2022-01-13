@@ -6,11 +6,6 @@
 		<div class="card">
 			<div class="card-header">
 				<h3>Log In..</h3>
-				<!-- <div class="d-flex justify-content-end social_icon">
-					<span><i class="fab fa-facebook-square"></i></span>
-					<span><i class="fab fa-google-plus-square"></i></span>
-					<span><i class="fab fa-twitter-square"></i></span>
-				</div> -->
 			</div>
 			<div class="card-body">
 				<form action="{% url 'login' %}" method="POST"> 
@@ -33,7 +28,12 @@
 					</div>
 				</form>
 			</div>
-			<div>
+			<div class="card-footer">
+				<div class="d-flex justify-content-center links">
+					{%for msg in messages %}
+						<h6 style = "color: red">{{msg}}</h6>
+					{% endfor %}
+				</div>
 			</div>
 			<div class="card-footer">
 				<div class="d-flex justify-content-center links">
@@ -43,14 +43,4 @@
 		</div>
 	</div>
 </div>
-    <!-- <form action="{% url 'login' %}" method="POST"> 
-        {% csrf_token %}
-        <p>User name<font color =blue>*</font></p>
-        <input type = "text" name = "user" placeholder = "Enter User name" required>
-        <p>Password<font color =blue>*</font></p>
-        <input type = "Password" name = "password"placeholder="Enter Password" required>
-        <input type = "submit" name = "" value = "Login"><br>
-        <br>
-        <a href="{% url 'signup' %}"> Sign up </a>
-    </from> -->
 {% endblock %}

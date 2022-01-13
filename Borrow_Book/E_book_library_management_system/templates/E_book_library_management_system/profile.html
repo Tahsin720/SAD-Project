@@ -7,18 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+    <style>
+        .alert{
+            color: red;
+        }
+    </style>
     <a class="navbar-brand" href="{% url 'home' %}">
         <img src="{% static 'images/book-icon.jpg' %}" style="height:50px; width:50px; border-radius:50%; margin-top: -18px">
     </a>
 
     <div style = "text-align: center;" color = "lightblue">
         <h1 style = "color: rgb(33, 128, 160)"> My Profile </h1>
-        <!-- <input type="text" class="form-control" value = "{{p_page.balance}}" disabled>  -->
     </div>
     {% if profile_page %}
         {% for p_page in profile_page %}   
@@ -44,54 +45,59 @@
                         <li class="nav-item">
                           <a class="nav-link active" aria-current="page" href="{% url 'profile' %}">Profile</a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                           <a class="nav-link" href="{% url 'home' %}">Home</a>
-                        </li> 
+                        </li>  -->
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="home">
                         
-                            <form class="form" action="{% url 'profile_func' %}" method="POST" enctype="multipart/form-data">
+                            <form action="{% url 'profile_func' %}" method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="form-group">
                                     <div class="col-xs-6">
                                         <label for="first_name"><h4>First name<font color =red>*</font></h4></label>
-                                        <input type="text" class="form-control" name = "first_name" value = "{{p_page.user.first_name}}"required> 
+                                        <input type="text" class="form-control" id="first_name" name = "first_name" value = "{{p_page.user.first_name}}" required> 
+                                        <span class = "alert" id="errFirst"></span> 
                                     </div>
                                 </div>
-
+                                
                                 <div class="form-group"> 
                                     <div class="col-xs-6">
                                         <label for="last_name"><h4>Last name<font color =red>*</font></h4></label>
-                                        <input type="text" class="form-control" name = "last_name" value = "{{p_page.user.last_name}}"required>
+                                        <input type="text" class="form-control" id = "last_name" name = "last_name" value = "{{p_page.user.last_name}}"required>
+                                        <span class = "alert" id="errLast"></span>
                                     </div>
                                 </div>
                     
                                 <div class="form-group">
                                     <div class="col-xs-6">
                                         <label for="mobile"><h4>Mobile<font color =red>*</font></h4></label>
-                                        <input type="text" class="form-control" name="mobile" value = "{{p_page.mobile_num}}" placeholder="enter mobile number" title="enter your mobile number if any.">
+                                        <input type="text" class="form-control" id="mobile" name="mobile" value = "{{p_page.mobile_num}}" placeholder="enter mobile number" title="enter your mobile number if any.">
+                                        <span class = "alert" id="errMob"></span>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-xs-6">
                                         <label for="email"><h4>Email<font color =red>*</font></h4></label>
-                                        <input type="email" class="form-control" name = "email" value = "{{p_page.user.email}}"required>
+                                        <input type="email" class="form-control" id = "email" name = "email" value = "{{p_page.user.email}}"required>
+                                        <span class = "alert" id="errEmail"></span>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-xs-6">
                                         <label for="text"><h4>Location<font color =red>*</font></h4></label>
-                                        <input type="text" class="form-control" name="location" value = "{{p_page.location}}" placeholder="somewhere">
+                                        <input type="text" class="form-control" id="location" name="location" value = "{{p_page.location}}" placeholder="somewhere">
+                                        <span class = "alert" id="errLoc"></span>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-xs-6">
                                         <label for="password"><h4>Password</h4></label>
-                                        <input type="password" class="form-control" name = "password" placeholder = "Enter Current your password">
+                                        <input type="password" class="form-control" id = "password" name = "password" placeholder = "Enter Current your password">
                                     </div>
                                 </div>
 
@@ -102,7 +108,8 @@
                                 <div class="form-group">
                                     <div class="col-xs-6">
                                         <label for="password2"><h4>New Password</h4></label>
-                                        <input type="password" class="form-control" name = "new_password" placeholder="Enter New Password">
+                                        <input type="password" class="form-control" id = "new_password" name = "new_password" placeholder="Enter New Password">
+                                        <span class = "alert" id="errNewpass"></span>
                                     </div>
                                 </div>
 
@@ -116,7 +123,7 @@
                                 <div class="form-group">
                                     <div class="col-xs-12">
                                         <br>
-                                        <button class="btn btn-lg btn-success" type="submit"value="Update Profile" name="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save </button>
+                                        <button class="btn btn-lg btn-success" type="submit" onclick = "return validation()" value="Update Profile" name="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save </button>
                                         <button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
                                     </div>
                                 </div>
@@ -128,7 +135,76 @@
         </div>
         {%endfor%}
     {%endif%}    
+    <script type="text/javascript">
+        function validation(){
+            var first_name = document.getElementById('first_name').value;
+            var last_name = document.getElementById("last_name").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var new_password = document.getElementById("new_password").value;
+            var mobile = document.getElementById("mobile").value;
+            var location = document.getElementById("location").value;
 
+            if(first_name.length < 2){
+                document.getElementById("errFirst").innerHTML = "**Write more than one character**";
+                return false;
+            }
+            if(!isNaN(first_name)){
+                document.getElementById("errFirst").innerHTML = "**Write only alphabets**";
+                return false;
+            }
+            if(last_name.length < 2){
+                document.getElementById("errLast").innerHTML = "**Write more than one character**";
+                return false;
+            }
+            if(!isNaN(last_name)){
+                document.getElementById("errLast").innerHTML = "**Write only alphabets**";
+                return false;
+            }
+            if(email.indexOf('@')<= 0){
+                document.getElementById("errEmail").innerHTML = "**Worng position of @**";
+                return false;
+            }
+            if(email.charAt(email.length-4) != '.'){
+                document.getElementById("errEmail").innerHTML = "**Worng position of . **";
+                return false;
+            }
+            if(password != ""){
+                if(new_password.length < 8){
+                    document.getElementById("errNewpass").innerHTML = "**Password must be at least 8 characters**";
+                    return false;
+                }
+                if(new_password.search(/[0-9]/) == -1){
+                    document.getElementById("errNewpass").innerHTML = "**Password must be contained at least 1 numerical Value**";
+                    return false;
+                }
+                if(new_password.search(/[a-z]/) == -1){
+                    document.getElementById("errNewpass").innerHTML = "**Password must be contained at least 1 lower case character**";
+                    return false;
+                }
+                if(new_password.search(/[A-Z]/) == -1){
+                    document.getElementById("errNewpass").innerHTML = "**Password must be contained at least 1 Upper case character**";
+                    return false;
+                }
+            }
+            if(isNaN(mobile)){
+              document.getElementById("errMob").innerHTML ="** Please enter a numeric value **";
+              return false;
+            }
+            if(mobile.length != 10){
+              document.getElementById("errMob").innerHTML ="** Invalid Number **";
+              return false;
+            } 
+            if(!isNaN(location)){
+                document.getElementById("errLoc").innerHTML = "**Write only alphabets**";
+                return false;
+            }
+            else{
+                alert("Updated Successfully!")
+            }
+
+        }
+    </script>   
 </body>
 </html>
 
