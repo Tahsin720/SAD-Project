@@ -1,3 +1,5 @@
+ 
+    
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -11,16 +13,64 @@ from datetime import datetime
 def admin_login(request):
     return render(request, '/admin')
 
+
 def home_page(request):
     return render(request, 'E_book_library_management_system/home.html')
 
+
+def login_page(request):
+    if request.method == 'POST':
+        username = request.POST['user']
+        password = request.POST['password']
+
+        print(username, password)
+        user = authenticate(username=username, password=password)
+
+        if user is None:
+            print('Not Done')
+            messages.error(request, 'Invalid Username or Password')
+            return redirect('login')
+        else:
+            login(request, user)
+            print('Done')
+            messages.success(request, 'Logged In!')
+            
+            return redirect('home')
+    else:
+        return render(request,'E_book_library_management_system/login.html')
+    
+
+def signout_page(request):
+    logout(request)
+    return redirect('login')
+
+def Signup_page(request):
+    if request.method == 'POST':
+        username = request.POST['user']
+        password = request.POST['password']
+        email = request.POST['email']
+        first_name = request.POST['firstname']
+        last_name = request.POST['lastname']
+
+        Us = User.objects.create_user(username=username, password=password, email=email, first_name=first_name, last_name=last_name)
+        Us.save()
+
+        print('User Created!')
+        return redirect('login')
+    else:
+        return render(request, 'E_book_library_management_system/signup.html')
+      
+
+@login_required   
 def profile_page(request): 
     if Profile.objects.filter(user = request.user.id).exists(): 
         p_page = Profile.objects.filter(user = request.user.id)
         return render(request, 'E_book_library_management_system/profile.html', {'profile_page': p_page})
     else:
         return render(request, 'E_book_library_management_system/book.html')
-        
+
+   
+@login_required        
 def profile_func(request):
     if request.method == 'POST':
         first_name = request.POST['first_name']
@@ -106,49 +156,7 @@ def profile_func(request):
     else:
         return render(request, 'E_book_library_management_system/profile.html')
 
-def login_page(request):
-    if request.method == 'POST':
-        username = request.POST['user']
-        password = request.POST['password']
-
-        print(username, password)
-        user = authenticate(username=username, password=password)
-
-        if user is None:
-            print('Not Done')
-            messages.error(request, 'Invalid Username or Password')
-            return redirect('login')
-        else:
-            login(request, user)
-            print('Done')
-            messages.success(request, 'Logged In!')
-            
-            return redirect('home')
-    else:
-        return render(request,'E_book_library_management_system/login.html')
-    
-
-
-def signout_page(request):
-    logout(request)
-    return redirect('login')
-
-def Signup_page(request):
-    if request.method == 'POST':
-        username = request.POST['user']
-        password = request.POST['password']
-        email = request.POST['email']
-        first_name = request.POST['firstname']
-        last_name = request.POST['lastname']
-
-        Us = User.objects.create_user(username=username, password=password, email=email, first_name=first_name, last_name=last_name)
-        Us.save()
-
-        print('User Created!')
-        return redirect('login')
-    else:
-        return render(request, 'E_book_library_management_system/signup.html')
-
+@login_required   
 def donate_page(request):
     if request.method == 'POST':
         isbn = request.POST['isbn']
@@ -169,9 +177,12 @@ def donate_page(request):
     else:
         return render(request, 'E_book_library_management_system/donate.html')
 
+
+@login_required   
 def book_page(request):
     b_page = book.objects.all()
     return render(request, 'E_book_library_management_system/book.html', {'book_page': b_page})
+
 
 def search_page(request):
     if request.method == 'POST':
@@ -180,7 +191,8 @@ def search_page(request):
         return render(request, 'E_book_library_management_system/search.html', {'book': b})
     else:
         return redirect('book')
-
+    
+@login_required   
 def Request_func(request):
     if request.method == 'GET':
         id = request.GET['isbn']
@@ -206,6 +218,7 @@ def Request_func(request):
         messages.error(request, 'Failed!')
         return redirect('book')
 
+@login_required   
 def cancel_Request_func(request):
         if request.method == 'GET':
             id = request.GET['isbn']
@@ -220,6 +233,7 @@ def cancel_Request_func(request):
             messages.error(request, 'failed')
             return redirect('book')
 
+@login_required   
 def count_likes(request):
         if request.method == 'GET':
             id = request.GET['isbn']
@@ -234,7 +248,7 @@ def count_likes(request):
         else:
             messages.error(request, 'failed')
             return redirect('book')
-
+@login_required   
 def count_dislikes(request):
         if request.method == 'GET':
             id = request.GET['isbn']
@@ -249,14 +263,18 @@ def count_dislikes(request):
         else:
             messages.error(request, 'failed')
             return redirect('book')
-
+        
+        
+@login_required   
 def my_book_func(request):
     if book.objects.filter(user_name = request.user.username).exists(): 
         b_page = book.objects.filter(user_name = request.user.username)
         return render(request, 'E_book_library_management_system/my_book.html', {'book_page': b_page})
     else:
         return render(request, 'E_book_library_management_system/my_book.html')
-
+    
+    
+@login_required   
 def my_request_func(request):
     #print("Okkkkakkaaakakkakakakak")
     if my_request.objects.filter(requester = request.user.username).exists(): 
@@ -266,7 +284,9 @@ def my_request_func(request):
         return render(request, 'E_book_library_management_system/my_req.html', {'req_page': r_page})
     else:
         return render(request, 'E_book_library_management_system/my_req.html')
-
+    
+    
+@login_required   
 def Post(request):
     if request.method == 'POST':
         uname = request.POST['uname']
@@ -280,11 +300,15 @@ def Post(request):
     else:
         return render(request, 'E_book_library_management_system/post.html')
 
+
+@login_required   
 def Review_page(request):
     r_page = Review_for_books.objects.all()
     u_page = User.objects.all()
     return render(request, 'E_book_library_management_system/Review.html', {'rev_page': r_page, 'user_page': u_page})
 
+
+@login_required   
 def del_Review_func(request):
     if request.method == 'GET':
         Id = request.GET['Id']
@@ -300,6 +324,8 @@ def del_Review_func(request):
         messages.error(request, 'failed')
         return redirect('Review')
 
+
+@login_required   
 def edit_review_page(request):
     if request.method == 'GET':
         Id = request.GET['Id']
@@ -310,6 +336,8 @@ def edit_review_page(request):
         messages.error(request, 'failed')
         return redirect('Review')
 
+
+@login_required   
 def update_rev_func(request):
     if request.method == 'POST':
         Id = request.POST['Id']
@@ -324,6 +352,8 @@ def update_rev_func(request):
     else:
         return render(request, 'E_book_library_management_system/post.html')
 
+
+@login_required   
 def Delete_book_func(request):
     if request.method == 'GET':
             id = request.GET['isbn']
@@ -338,6 +368,8 @@ def Delete_book_func(request):
         messages.error(request, 'failed')
         return redirect('book')
 
+
+@login_required   
 def edit_book_page(request):
     if request.method == 'GET':
         Id = request.GET['isbn']
@@ -348,6 +380,8 @@ def edit_book_page(request):
         messages.error(request, 'failed')
         return redirect('my_book')
 
+
+@login_required   
 def update_book_func(request):
     if request.method == 'POST':
         isbn = request.POST['isbn']
@@ -371,6 +405,8 @@ def update_book_func(request):
     else:
         return render(request, 'E_book_library_management_system/update_book.html')
 
+
+@login_required   
 def report_function(request):
     if request.method == 'GET':
         Id = request.GET['Id']
@@ -388,6 +424,8 @@ def report_function(request):
             messages.error(request, 'Already Inserted')
             return redirect('Review')
 
+
+@login_required   
 def payment_page(request):
     if request.method == 'GET':
         amount = request.GET['amount']
@@ -396,9 +434,13 @@ def payment_page(request):
         print("<=====Else=====>: ")
         return render(request, 'E_book_library_management_system/choose_plan.html')
 
+
+@login_required   
 def choose_plan(request):
     return render(request, 'E_book_library_management_system/choose_plan.html')
 
+
+@login_required   
 def payment_func(request):
     if request.method == 'POST':
         paid_by = request.POST['paid_by']

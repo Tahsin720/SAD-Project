@@ -19,12 +19,12 @@ from E_book_library_management_system import views
 
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth.decorators import login_required
 # from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/', views.home_page, name='home'),
-
+    path('', views.home_page, name='home'),
     path('login/', views.login_page, name='login'),
     path('signup/', views.Signup_page, name='signup'),
     path('profile/', views.profile_page, name='profile'),
