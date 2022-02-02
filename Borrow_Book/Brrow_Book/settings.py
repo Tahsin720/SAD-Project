@@ -138,5 +138,7 @@ LOGIN_URL = 'login'
 # XSS Protection
 SECURE_BROWSER_XSS_FILTER = True
 
-#Clickjacking protection
+# Clickjacking protection
 X_FRAME_OPTIONS = 'DENY'
+
+# done

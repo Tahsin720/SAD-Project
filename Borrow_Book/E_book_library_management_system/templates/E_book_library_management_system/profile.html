@@ -7,19 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 </head>
+
 <body>
     <style>
         .alert{
             color: red;
         }
-        
     </style>
-
-    <!-- Navigation -->
-    
-
-    <!-- end nav -->
+    <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="{% static 'images/book-icon.jpg' %}" style="height:50px; width:50px; border-radius:50%; margin-top: -18px">
+    </a>
 
     <div style = "text-align: center;" color = "lightblue">
         <h1 style = "color: rgb(33, 128, 160)"> My Profile </h1>
