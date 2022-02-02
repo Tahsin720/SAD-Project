@@ -134,3 +134,9 @@ STATICFILES_DIRS = (
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'login'
+
+# XSS Protection
+SECURE_BROWSER_XSS_FILTER = True
+
+#Clickjacking protection
+X_FRAME_OPTIONS = 'DENY'
